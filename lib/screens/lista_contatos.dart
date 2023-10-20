@@ -10,10 +10,7 @@ class ListaContatos extends StatefulWidget {
 }
 
 class _ListaContatosState extends State<ListaContatos> {
-  List<Contato> listaContatos = [
-    new Contato(
-        'Júlio', '31 985662410', '09068868640', 'julio.santos@gmail.com')
-  ];
+  List<Contato> listaContatos = [];
 
   @override
   Widget build(BuildContext context) {
