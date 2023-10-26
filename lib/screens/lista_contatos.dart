@@ -40,6 +40,18 @@ class _ListaContatosState extends State<ListaContatos> {
       });
     }
 
+    void showExcluirTodosDialog() {
+      showDialog(context: context, builder: (_) {
+        return AlertDialog(
+          content: Container(
+            height: 410,
+            width: 400,
+            child: Text('Deseja excluir todos os contatos?'),
+          ),
+        );
+      });
+    }
+
     void showAdicionarContatosDialog() {
       showDialog(
         context: context,
