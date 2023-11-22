@@ -1,6 +1,6 @@
-# lista_contatos
+# Lista de Tarefas
 
-Aplicação de Lista de Contatos em Flutter
+Aplicação de Lista de Tarefas em Flutter
 
 ## Getting Started
 
