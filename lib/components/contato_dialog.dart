@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/model/contato.dart';
 import 'package:masked_text/masked_text.dart';
 
-class AdicionarContatoDialog extends StatefulWidget {
-  final Function(Contato) adicionarContato;
-  final Function(int?, Contato) editarContato;
-  final Contato? contatoEdicao;
-  final int? indexContatoEdicao;
+import '../model/todo.dart';
 
-  const AdicionarContatoDialog(this.adicionarContato, this.editarContato,
-      [this.contatoEdicao, this.indexContatoEdicao]);
+class AdicionarTarefaDialog extends StatefulWidget {
+  final Function(Todo) adicionarTarefa;
+  final Function(Todo) editarTarefa;
+  final Todo? tarefaEdicao;
+  final int? indexTarefaEdicao;
+
+  const AdicionarTarefaDialog(this.adicionarTarefa, this.editarTarefa,
+      [this.tarefaEdicao, this.indexTarefaEdicao]);
 
   @override
-  State<AdicionarContatoDialog> createState() => _AdicionarContatoDialogState();
+  State<AdicionarTarefaDialog> createState() => _AdicionarTarefaDialogState();
 }
 
-class _AdicionarContatoDialogState extends State<AdicionarContatoDialog> {
+class _AdicionarTarefaDialogState extends State<AdicionarTarefaDialog> {
   @override
   Widget build(BuildContext context) {
     Widget buildTextField(String hint, TextEditingController controller,
         {String? mask}) {
       return Container(
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.all(10),
         child: MaskedTextField(
           mask: mask,
           decoration: InputDecoration(
@@ -31,7 +32,7 @@ class _AdicionarContatoDialogState extends State<AdicionarContatoDialog> {
               color: Color.fromRGBO(56, 68, 85, 1),
               fontWeight: FontWeight.w400,
             ),
-            hintText: 'Digite seu ${hint}',
+            hintText: 'Digite o ${hint.toLowerCase()} da tarefa',
             hintStyle: const TextStyle(
               fontSize: 20,
               color: Color.fromRGBO(32, 32, 32, 1),
@@ -58,32 +59,27 @@ class _AdicionarContatoDialogState extends State<AdicionarContatoDialog> {
     }
 
     var nomeController = TextEditingController();
-    var numeroController = TextEditingController();
-    var cpfController = TextEditingController();
-    var emailController = TextEditingController();
+    var descricaoController = TextEditingController();
 
-    if (widget.contatoEdicao != null) {
-      final contato = widget.contatoEdicao!;
-      nomeController.text = contato.nome;
-      numeroController.text = contato.numero;
-      cpfController.text = contato.CPF;
-      emailController.text = contato.email;
+    if (widget.tarefaEdicao != null) {
+      final todo = widget.tarefaEdicao!;
+      nomeController.text = todo.name;
+      descricaoController.text = todo.description;
     }
 
     adicionar() {
-      if (nomeController.text.isNotEmpty && numeroController.text.isNotEmpty) {
+      if (nomeController.text.isNotEmpty) {
         setState(() {
           final nome = nomeController.text;
-          final numero = numeroController.text;
-          final cpf = cpfController.text;
-          final email = emailController.text;
-          final contato = Contato(nome, numero, cpf, email);
-          if (widget.contatoEdicao != null &&
-              widget.indexContatoEdicao != null) {
-            widget.editarContato(widget.indexContatoEdicao, contato);
+          final descricao = descricaoController.text;
+          final todo = Todo(null, nome, descricao, 0);
+          if (widget.tarefaEdicao != null) {
+            todo.id = widget.tarefaEdicao?.id;
+            todo.done = widget.tarefaEdicao?.done ?? 0;
+            widget.editarTarefa(todo);
             return;
           }
-          widget.adicionarContato(contato);
+          widget.adicionarTarefa(todo);
         });
         Navigator.of(context).pop();
       }
@@ -91,13 +87,13 @@ class _AdicionarContatoDialogState extends State<AdicionarContatoDialog> {
 
     return Container(
         padding: const EdgeInsets.all(8),
-        height: 410,
+        height: 300,
         width: 400,
         child: SingleChildScrollView(
           child: Column(
             children: [
               const Text(
-                'Adicionar Contato',
+                'Adicionar Tarefa',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 24,
@@ -105,10 +101,7 @@ class _AdicionarContatoDialogState extends State<AdicionarContatoDialog> {
                 ),
               ),
               buildTextField('Nome', nomeController),
-              buildTextField('Número', numeroController,
-                  mask: "(##)#####-####"),
-              buildTextField('CPF', cpfController, mask: "###.###.###-##"),
-              buildTextField('Email', emailController),
+              buildTextField('Descrição', descricaoController),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: ElevatedButton(

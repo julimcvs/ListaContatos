@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lista_contatos/screens/home.dart';
-import 'package:lista_contatos/screens/lista_contatos.dart';
+import 'package:lista_tarefas/screens/about.dart';
+import 'package:lista_tarefas/screens/help.dart';
+import 'package:lista_tarefas/screens/home.dart';
+import 'package:lista_tarefas/screens/todo_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
       routes: {
-        '/lista-contatos': (context) => ListaContatos(),
+        '/todo-list': (context) => const TodoList(),
+        '/about': (context) => const AboutPage(),
+        '/help': (context) => const HelpPage(),
       },
     );
   }

@@ -1,5 +1,5 @@
-name: lista_contatos
-description: Aplicação de Lista de Contatos em Flutter
+name: lista_tarefas
+description: Aplicação de Lista de Tarefas em Flutter
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,6 +31,8 @@ dependencies:
   flutter:
     sdk: flutter
   masked_text: ^1.1.2
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,8 +61,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-assets:
-  - assets/contatos.png
+  assets:
+    - assets/contatos.png
+    - assets/julio.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
